@@ -30,6 +30,11 @@ namespace DataAccessLayer.Repositories
             throw new NotImplementedException();
         }
 
+        public void Insert(Comment t)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Comment t)
         {
             throw new NotImplementedException();
