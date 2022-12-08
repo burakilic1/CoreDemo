@@ -1,4 +1,4 @@
-﻿using BusinessLayer.Abstract;
+﻿ using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System;
@@ -41,6 +41,11 @@ namespace BusinessLayer.Concrete
 		public Blog GetById(int id)
 		{
 		 return	_blogDal.GetByID(id);
+		}
+		
+		public List<Blog> GetBlogByID(int id) 
+		{
+			return _blogDal.GetListAll(x => x.BlogID == id);
 		}
 
 		public List<Blog> GetList()
