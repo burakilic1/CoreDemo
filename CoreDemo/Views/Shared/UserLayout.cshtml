@@ -42,7 +42,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<i class="fab fa-linode"></i> Weblog
 					</a>
 				</div>
-				@await Html.PartialAsync("Partial2")
+
+@await Html.PartialAsync("Partial2")
 
 				<div class="col-md-4 log-icons text-right">
 
@@ -80,9 +81,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	</header>
 	
-@RenderBody()
+
 	<!--//main-->
 	<!--footer-->
+	@RenderBody()
+
 	@await Html.PartialAsync("Partial3")
 	<!---->
 	<!-- js -->

@@ -17,7 +17,7 @@ namespace CoreDemo.Controllers
         {
             return View();
         }
-        [HttpPost]
+        [HttpPost]  
         public IActionResult Index(Writer p)
         {
             WriterValidator wv = new WriterValidator();
