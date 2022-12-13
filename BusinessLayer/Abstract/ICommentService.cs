@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BusinessLayer.Abstract
 {
     public interface ICommentService
-    {
+    { 
         void CommentAdd(Comment comment);
        // void CommentDelete(Comment blog);
        // void CommentUpdate(Comment blog);

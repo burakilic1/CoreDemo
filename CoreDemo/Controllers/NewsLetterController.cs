@@ -19,7 +19,7 @@ namespace CoreDemo.Controllers
         {
             p.MailStatus = true;
             nm.AddNewsLetter(p);
-            return PartialView();
+            return PartialView(); 
         }
     }
 }
