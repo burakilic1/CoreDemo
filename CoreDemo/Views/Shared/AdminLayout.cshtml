@@ -190,6 +190,25 @@
     <script src="~/inspinia-gh-pages/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="~/inspinia-gh-pages/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
+    <!-- WidgetControllerdaki scriptler (Harita çalışmıyordu çalışması için kondu.) -->
+  
+    <script src="~/inspinia-gh-pages/js/jquery-3.1.1.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/popper.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/bootstrap.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/inspinia.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/pace/pace.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/flot/jquery.flot.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/plugins/flot/jquery.flot.resize.js"></script> 
+    <!------------------------------------------------------------------------------------------------------>
+
     <!-- Peity -->
     <script src="~/inspinia-gh-pages/js/plugins/peity/jquery.peity.min.js"></script>
 
@@ -211,6 +230,8 @@
             });
         });
     </script>
+
+    @await RenderSectionAsync("scripts",false)
 
 </body>
 

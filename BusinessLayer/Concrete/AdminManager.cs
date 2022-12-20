@@ -9,36 +9,36 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
-	public class AboutManager :  IAboutService
-	{
-		IAboutDal _aboutDal;
+    public class AdminManager : IAdminService
+    {
+        IAdminDal _adminDal;
 
-		public AboutManager(IAboutDal aboutDal)
-		{
-			_aboutDal = aboutDal;
-		}
+        public AdminManager(IAdminDal adminDal)
+        {
+            _adminDal = adminDal;
+        }
 
-        public About TGetById(int id)
+        public List<Admin> GetList()
         {
             throw new NotImplementedException();
         }
 
-        public List<About> GetList()
-		{
-			return _aboutDal.GetListAll();
-		}
-
-        public void TAdd(About t)
+        public void TAdd(Admin t)
         {
             throw new NotImplementedException();
         }
 
-        public void TDelete(About t)
+        public void TDelete(Admin t)
         {
             throw new NotImplementedException();
         }
 
-        public void TUpdate(About t)
+        public Admin TGetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TUpdate(Admin t)
         {
             throw new NotImplementedException();
         }
