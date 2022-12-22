@@ -2,3 +2,6 @@
 
 # CS8604: Possible null reference argument.
 dotnet_diagnostic.CS8604.severity = none
+
+# IDE0017: Simplify object initialization
+dotnet_style_object_initializer = false

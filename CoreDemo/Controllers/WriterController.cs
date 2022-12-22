@@ -3,9 +3,12 @@ using BusinessLayer.ValidationRules;
 using CoreDemo.Models;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Spreadsheet;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -15,6 +18,14 @@ namespace CoreDemo.Controllers
     public class WriterController : Controller
     {
         WriterManager wm = new WriterManager(new EfWriterRepository());
+
+        private readonly UserManager<AppUser> _userManager;
+
+        public WriterController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
         [Authorize]
         public IActionResult Index()
         {
@@ -50,43 +61,29 @@ namespace CoreDemo.Controllers
             return PartialView();
         }
         [HttpGet]
-        public IActionResult WriterEditProfile()
+        public async Task<IActionResult> WriterEditProfile()
         {
-            Context c = new Context();  
-            var usermail = User.Identity.Name;
-            var writerID = c.Writers.Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
-            ViewBag.v2 = writerID;
-            var writervalues = wm.TGetById(writerID);
-            return View(writervalues);
+            //Context c = new Context();
+            //var username = User.Identity.Name;
+            //var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+            //var id = c.Users.Where(x => x.Email==usermail).Select(y => y.Id).FirstOrDefault();
+            //UserManager userManager = new UserManager(new EfUserRepository());
+            //var writervalues = userManager.TGetById(id);
+
+
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            UserUpdateViewModel model = new UserUpdateViewModel();
+            return View(values);
         }
         [HttpPost]
-        public IActionResult WriterEditProfile(Writer writer)
+        public async Task<IActionResult> WriterEditProfile(UserUpdateViewModel model) 
         {
-            var pas1 = Request.Form["pass1"];
-            var pas2 = Request.Form["pass2"];
-            if (pas1 == pas2)
-            {
-                writer.WriterPassword = pas2;
-                WriterValidator validationRules = new WriterValidator();
-                ValidationResult result = validationRules.Validate(writer);
-                if (result.IsValid)
-                {
-                    wm.TUpdate(writer);
-                    return RedirectToAction("Index", "Dashboard");
-                }
-                else
-                {
-                    foreach (var item in result.Errors)
-                    {
-                        ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                    }
-                }
-            }
-            else
-            {
-                ViewBag.hata = "Girdiğiniz Parolalar Uyuşmuyor!";
-            }
-            return View();
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            values.NameSurname = model.namesurname;
+            values.ImageUrl = model.imageurl;
+            values.Email = model.mail; 
+            return RedirectToAction("Index", "Dashboard");
+
         }
         [AllowAnonymous]
         [HttpGet]
@@ -98,13 +95,13 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult WriterAdd(AddProfileImage p)
         {
-            Writer w = new Writer();
-            if (p.WriterImage !=null)
+            EntityLayer.Concrete.Writer w = new EntityLayer.Concrete.Writer();
+            if (p.WriterImage != null)
             {
                 var extension = Path.GetExtension(p.WriterImage.FileName);
                 var newimagename = Guid.NewGuid() + extension;
                 var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WriterImageFiles/", newimagename);
-                var stream= new FileStream(location, FileMode.Create);
+                var stream = new FileStream(location, FileMode.Create);
                 p.WriterImage.CopyTo(stream);
                 w.WriterImage = newimagename;
             }
@@ -112,7 +109,7 @@ namespace CoreDemo.Controllers
             w.WriterName = p.WriterName;
             w.WriterPassword = p.WriterPassword;
             w.WriterStatus = true;
-            w.WriterAbout = p.WriterAbout;  
+            w.WriterAbout = p.WriterAbout;
             wm.TAdd(w);
             return RedirectToAction("Index", "Dashboard");
         }

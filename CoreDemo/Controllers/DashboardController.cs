@@ -8,11 +8,15 @@ namespace CoreDemo.Controllers
     {
         public IActionResult Index()
         {
-            Context c =new Context();
-            ViewBag.v1 = c.Blogs.Count().ToString();
-            ViewBag.v2 = c.Blogs.Count(x=>x.WriterID==1).ToString();
-            ViewBag.v3 = c.Categories.Count().ToString();   
+            Context c = new Context();
+            var username = User.Identity.Name;
+            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+            var userid =  c.Writers.Where(x=>x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
+
+            ViewBag.v1 = c.Blogs.Count(x=>x.WriterID== userid).ToString();
+            ViewBag.v2 = c.Blogs.Count(x => x.WriterID == userid).ToString();
+            ViewBag.v3 = c.Categories.Count().ToString();
             return View();
         }
-    } 
+    }
 }
